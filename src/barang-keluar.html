@@ -1,0 +1,120 @@
+{% set title = 'Barang Keluar' %}
+{% set filename = 'barang-keluar.html' %}
+
+{% extends 'src/layouts/master.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="assets/extensions/choices.js/public/assets/styles/choices.css">
+<link rel="stylesheet" href="assets/extensions/simple-datatables/style.css">
+<link rel="stylesheet" href="assets/scss/pages/simple-datatables.scss">
+{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Barang Keluar</h3>
+                <p class="text-subtitle text-muted">Mencatat pengeluaran barang dari gudang (stok berkurang).</p>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Input Barang Keluar</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Tanggal Keluar</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Nama Barang</label>
+                                <select class="choices form-select">
+                                    <option>Besi Beton Polos 10mm</option>
+                                    <option>Besi Hollow 40x40mm</option>
+                                    <option>Cat Besi Avian Hitam 1Kg</option>
+                                    <option>Semen Tiga Roda 50Kg</option>
+                                    <option>Thinner Impala 1L</option>
+                                    <option>Pipa Galvanis 1/2 Inch</option>
+                                    <option>Kawat Bendrat 1Kg</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Lokasi Gudang</label>
+                                <select class="choices form-select">
+                                    <option>Lokasi 1</option>
+                                    <option>Lokasi 2</option>
+                                    <option>Lokasi 3</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Jumlah</label>
+                                <input type="number" class="form-control" placeholder="0">
+                            </div>
+                            <button type="button" class="btn btn-danger w-100">Proses Pengeluaran</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Riwayat Barang Keluar Hari Ini</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped" id="table1">
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Nama Barang</th>
+                                    <th>Lokasi</th>
+                                    <th>Jumlah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>02/09/2026</td>
+                                    <td>Besi Beton Polos 10mm</td>
+                                    <td>Lokasi 1</td>
+                                    <td><span class="text-danger">-30 Batang</span></td>
+                                </tr>
+                                <tr>
+                                    <td>02/09/2026</td>
+                                    <td>Semen Tiga Roda 50Kg</td>
+                                    <td>Lokasi 3</td>
+                                    <td><span class="text-danger">-25 Sak</span></td>
+                                </tr>
+                                <tr>
+                                    <td>02/09/2026</td>
+                                    <td>Cat Besi Avian Hitam 1Kg</td>
+                                    <td>Lokasi 2</td>
+                                    <td><span class="text-danger">-12 Kaleng</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+<script src="assets/static/js/pages/simple-datatables.js"></script>
+<script src="assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
+<script>
+    const choices = document.querySelectorAll('.choices');
+    for (let i = 0; i < choices.length; i++) {
+        new Choices(choices[i], {
+            searchEnabled: false
+        });
+    }
+</script>
+{% endblock %}

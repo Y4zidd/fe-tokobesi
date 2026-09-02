@@ -1,0 +1,145 @@
+{% set title = 'Barang Masuk' %}
+{% set filename = 'barang-masuk.html' %}
+
+{% extends 'src/layouts/master.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="assets/extensions/choices.js/public/assets/styles/choices.css">
+<link rel="stylesheet" href="assets/extensions/simple-datatables/style.css">
+<link rel="stylesheet" href="assets/scss/pages/simple-datatables.scss">
+{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Barang Masuk</h3>
+                <p class="text-subtitle text-muted">Mencatat penerimaan barang masuk ke gudang (stok bertambah).</p>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Input Barang Masuk</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Tanggal Masuk</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Nama Barang</label>
+                                <select class="choices form-select">
+                                    <option>Besi Beton Polos 10mm</option>
+                                    <option>Cat Besi Avian Hitam 1Kg</option>
+                                    <option>Semen Tiga Roda 50Kg</option>
+                                    <option>Thinner Impala 1L</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Lokasi Gudang</label>
+                                <select class="choices form-select">
+                                    <option>Lokasi 1</option>
+                                    <option>Lokasi 2</option>
+                                    <option>Lokasi 3</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Jumlah</label>
+                                <input type="number" class="form-control" placeholder="0">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Harga Beli (Total)</label>
+                                <input type="text" class="form-control input-rupiah" placeholder="Rp 0">
+                            </div>
+                            <button type="button" class="btn btn-primary w-100">Simpan Data</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Riwayat Barang Masuk Hari Ini</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped" id="table1">
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Nama Barang</th>
+                                    <th>Lokasi</th>
+                                    <th>Jumlah</th>
+                                    <th>Harga Beli</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>02/09/2026</td>
+                                    <td>Besi Beton Polos 10mm</td>
+                                    <td>Lokasi 1</td>
+                                    <td><span class="text-success">+100 Batang</span></td>
+                                    <td>Rp 7.500.000</td>
+                                </tr>
+                                <tr>
+                                    <td>02/09/2026</td>
+                                    <td>Thinner Impala 1L</td>
+                                    <td>Lokasi 2</td>
+                                    <td><span class="text-success">+48 Botol</span></td>
+                                    <td>Rp 864.000</td>
+                                </tr>
+                                <tr>
+                                    <td>01/09/2026</td>
+                                    <td>Cat Besi Avian Hitam 1Kg</td>
+                                    <td>Lokasi 2</td>
+                                    <td><span class="text-success">+50 Kaleng</span></td>
+                                    <td>Rp 2.250.000</td>
+                                </tr>
+                                <tr>
+                                    <td>01/09/2026</td>
+                                    <td>Semen Tiga Roda 50Kg</td>
+                                    <td>Lokasi 3</td>
+                                    <td><span class="text-success">+100 Sak</span></td>
+                                    <td>Rp 6.000.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+<script src="assets/static/js/pages/simple-datatables.js"></script>
+<script src="assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
+<script>
+    const choices = document.querySelectorAll('.choices');
+    for (let i = 0; i < choices.length; i++) {
+        new Choices(choices[i], { searchEnabled: false });
+    }
+
+    function formatRupiah(el) {
+        let raw = el.value.replace(/[^\d]/g, '');
+        if (!raw) { el.value = ''; return; }
+        el.value = 'Rp ' + parseInt(raw).toLocaleString('id-ID');
+    }
+    document.querySelectorAll('.input-rupiah').forEach(el => {
+        el.addEventListener('input', () => formatRupiah(el));
+        el.addEventListener('focus', function() {
+            if (this.value === '') this.value = 'Rp ';
+        });
+        el.addEventListener('blur', function() {
+            if (this.value === 'Rp ') this.value = '';
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% set title = 'Update Harga' %}
+{% set filename = 'update-harga.html' %}
+
+{% extends 'src/layouts/master.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="assets/extensions/choices.js/public/assets/styles/choices.css">
+<link rel="stylesheet" href="assets/extensions/simple-datatables/style.css">
+<link rel="stylesheet" href="assets/scss/pages/simple-datatables.scss">
+{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Update Harga Barang</h3>
+                <p class="text-subtitle text-muted">Melakukan perubahan harga jual barang.</p>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Form Update Harga</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Nama Barang</label>
+                                <select class="choices form-select">
+                                    <option>Besi Beton Polos 10mm</option>
+                                    <option>Besi Hollow 40x40mm</option>
+                                    <option>Cat Besi Avian Hitam 1Kg</option>
+                                    <option>Semen Tiga Roda 50Kg</option>
+                                    <option>Thinner Impala 1L</option>
+                                    <option>Pipa Galvanis 1/2 Inch</option>
+                                    <option>Kawat Bendrat 1Kg</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Harga Lama</label>
+                                <input type="text" class="form-control" value="Rp 75.000" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Harga Baru</label>
+                                <input type="text" class="form-control input-rupiah" id="hargaBaru" placeholder="Rp 0">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tanggal Update</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <button type="button" class="btn btn-primary w-100">Update Harga</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Riwayat Perubahan Harga Hari Ini</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped" id="table1">
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Nama Barang</th>
+                                    <th>Harga Lama</th>
+                                    <th>Harga Baru</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>02/09/2026</td>
+                                    <td>Besi Beton Polos 10mm</td>
+                                    <td><span class="text-muted text-decoration-line-through">Rp 72.000</span></td>
+                                    <td><span class="text-success fw-bold">Rp 75.000</span></td>
+                                </tr>
+                                <tr>
+                                    <td>01/09/2026</td>
+                                    <td>Cat Besi Avian Hitam 1Kg</td>
+                                    <td><span class="text-muted text-decoration-line-through">Rp 52.000</span></td>
+                                    <td><span class="text-success fw-bold">Rp 55.000</span></td>
+                                </tr>
+                                <tr>
+                                    <td>01/09/2026</td>
+                                    <td>Semen Tiga Roda 50Kg</td>
+                                    <td><span class="text-muted text-decoration-line-through">Rp 63.000</span></td>
+                                    <td><span class="text-success fw-bold">Rp 65.000</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+<script src="assets/static/js/pages/simple-datatables.js"></script>
+<script src="assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
+<script>
+    const choices = document.querySelectorAll('.choices');
+    for (let i = 0; i < choices.length; i++) {
+        new Choices(choices[i], { searchEnabled: false });
+    }
+
+    // Format rupiah: auto titik & prefix Rp
+    function formatRupiah(el) {
+        let raw = el.value.replace(/[^\d]/g, '');
+        if (!raw) { el.value = ''; return; }
+        el.value = 'Rp ' + parseInt(raw).toLocaleString('id-ID');
+    }
+    document.querySelectorAll('.input-rupiah').forEach(el => {
+        el.addEventListener('input', () => formatRupiah(el));
+        el.addEventListener('focus', function() {
+            if (this.value === '') this.value = 'Rp ';
+        });
+        el.addEventListener('blur', function() {
+            if (this.value === 'Rp ') this.value = '';
+        });
+    });
+</script>
+{% endblock %}

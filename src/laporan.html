@@ -1,0 +1,165 @@
+{% set title = 'Laporan' %}
+{% set filename = 'laporan.html' %}
+
+{% extends 'src/layouts/master.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="assets/extensions/choices.js/public/assets/styles/choices.css">
+<link rel="stylesheet" href="assets/extensions/simple-datatables/style.css">
+<link rel="stylesheet" href="assets/scss/pages/simple-datatables.scss">
+{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Laporan Inventaris</h3>
+                <p class="text-subtitle text-muted">Generate dan export laporan stok dan transaksi.</p>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="m-0">Filter Laporan</h5>
+            </div>
+            <div class="card-body">
+                <form class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label">Jenis Laporan</label>
+                        <select class="choices form-select">
+                            <option>Laporan Stok Terkini</option>
+                            <option>Laporan Barang Masuk</option>
+                            <option>Laporan Barang Keluar</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Lokasi</label>
+                        <select class="choices form-select">
+                            <option>Semua Lokasi</option>
+                            <option>Lokasi 1</option>
+                            <option>Lokasi 2</option>
+                            <option>Lokasi 3</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Periode Dari</label>
+                        <input type="date" class="form-control" value="2026-09-01">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Sampai</label>
+                        <input type="date" class="form-control" value="2026-09-30">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label d-none d-md-block">&nbsp;</label>
+                        <button type="button" class="btn btn-primary w-100"><i class="bi bi-search"></i> Tampilkan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="m-0">Hasil Laporan: Stok Terkini</h5>
+                <div>
+                    <button class="btn btn-danger"><i class="bi bi-file-earmark-pdf"></i> Export PDF</button>
+                    <button class="btn btn-success"><i class="bi bi-file-earmark-excel"></i> Export Excel</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped" id="table1">
+                    <thead>
+                        <tr>
+                            <th>Kode Barang</th>
+                            <th>Nama Barang</th>
+                            <th>Kategori</th>
+                            <th>Lokasi</th>
+                            <th>Stok Sisa</th>
+                            <th>Nilai Aset</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BRG-001</td>
+                            <td>Besi Beton Polos 10mm</td>
+                            <td>Besi &amp; Baja</td>
+                            <td>Lokasi 1</td>
+                            <td>120</td>
+                            <td>Rp 9.000.000</td>
+                        </tr>
+                        <tr>
+                            <td>BRG-002</td>
+                            <td>Cat Besi Avian Hitam 1Kg</td>
+                            <td>Cat &amp; Thinner</td>
+                            <td>Lokasi 2</td>
+                            <td>250</td>
+                            <td>Rp 13.750.000</td>
+                        </tr>
+                        <tr>
+                            <td>BRG-003</td>
+                            <td>Semen Tiga Roda 50Kg</td>
+                            <td>Semen &amp; Pasir</td>
+                            <td>Lokasi 3</td>
+                            <td>85</td>
+                            <td>Rp 5.525.000</td>
+                        </tr>
+                        <tr>
+                            <td>BRG-004</td>
+                            <td>Besi Hollow 40x40mm</td>
+                            <td>Besi &amp; Baja</td>
+                            <td>Lokasi 1</td>
+                            <td>60</td>
+                            <td>Rp 7.200.000</td>
+                        </tr>
+                        <tr>
+                            <td>BRG-005</td>
+                            <td>Thinner Impala 1L</td>
+                            <td>Cat &amp; Thinner</td>
+                            <td>Lokasi 2</td>
+                            <td>180</td>
+                            <td>Rp 3.600.000</td>
+                        </tr>
+                        <tr>
+                            <td>BRG-006</td>
+                            <td>Pipa Galvanis 1/2 Inch</td>
+                            <td>Pipa &amp; Fitting</td>
+                            <td>Lokasi 1</td>
+                            <td>75</td>
+                            <td>Rp 2.625.000</td>
+                        </tr>
+                        <tr>
+                            <td>BRG-007</td>
+                            <td>Kawat Bendrat 1Kg</td>
+                            <td>Paku &amp; Baut</td>
+                            <td>Lokasi 3</td>
+                            <td>200</td>
+                            <td>Rp 3.000.000</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="5" class="text-end">Total Estimasi Nilai Aset:</th>
+                            <th>Rp 44.700.000</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+<script src="assets/static/js/pages/simple-datatables.js"></script>
+<script src="assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
+<script>
+    const choices = document.querySelectorAll('.choices');
+    for (let i = 0; i < choices.length; i++) {
+        new Choices(choices[i], {
+            searchEnabled: false
+        });
+    }
+</script>
+{% endblock %}

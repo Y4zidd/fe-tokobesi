@@ -1,0 +1,204 @@
+{% set title = 'Data Barang' %}
+{% set filename = 'data-barang.html' %}
+
+{% extends 'src/layouts/master.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="assets/extensions/choices.js/public/assets/styles/choices.css">
+<link rel="stylesheet" href="assets/extensions/simple-datatables/style.css">
+<link rel="stylesheet" href="assets/scss/pages/simple-datatables.scss">
+{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Data Barang</h3>
+                <p class="text-subtitle text-muted">Master data inventaris barang.</p>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="m-0">Daftar Barang</h5>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahBarangModal">
+                    <i class="bi bi-plus-circle"></i> Tambah Barang
+                </button>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped" id="table1">
+                    <thead>
+                        <tr>
+                            <th>Kode Barang</th>
+                            <th>Nama Barang</th>
+                            <th>Kategori</th>
+                            <th>Harga</th>
+                            <th>Stok Total</th>
+                            <th>Satuan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BRG-001</td>
+                            <td>Besi Beton Polos 10mm</td>
+                            <td>Besi & Baja</td>
+                            <td>Rp 75.000</td>
+                            <td>120</td>
+                            <td>Batang</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                                <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BRG-002</td>
+                            <td>Cat Besi Avian Hitam 1Kg</td>
+                            <td>Cat & Thinner</td>
+                            <td>Rp 55.000</td>
+                            <td>250</td>
+                            <td>Kaleng</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                                <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BRG-003</td>
+                            <td>Semen Tiga Roda 50Kg</td>
+                            <td>Semen & Pasir</td>
+                            <td>Rp 65.000</td>
+                            <td>85</td>
+                            <td>Sak</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                                <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Modal Tambah Barang -->
+<div class="modal fade" id="tambahBarangModal" tabindex="-1" aria-labelledby="tambahBarangModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tambahBarangModalLabel">Tambah Barang Baru</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Kode Barang</label>
+                        <input type="text" class="form-control" placeholder="Contoh: BRG-004">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nama Barang</label>
+                        <input type="text" class="form-control" placeholder="Nama Barang">
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label class="form-label mb-0">Kategori</label>
+                            <a href="#" class="small" id="linkTambahKategori">
+                                <i class="bi bi-plus-circle"></i> Tambah Kategori Baru
+                            </a>
+                        </div>
+                        <select class="choices-kategori form-select" id="selectKategori">
+                            <option value="">-- Pilih Kategori --</option>
+                            <option value="Besi & Baja">Besi &amp; Baja</option>
+                            <option value="Cat & Thinner">Cat &amp; Thinner</option>
+                            <option value="Semen & Pasir">Semen &amp; Pasir</option>
+                            <option value="Paku & Baut">Paku &amp; Baut</option>
+                            <option value="Alat Pertukangan">Alat Pertukangan</option>
+                        </select>
+                        <div class="input-group mt-2" id="inputKategoriCustom" style="display:none;">
+                            <input type="text" class="form-control form-control-sm" id="inputKategoriBaru" placeholder="Nama kategori baru...">
+                            <button type="button" class="btn btn-sm btn-primary" id="btnTambahKategori">Tambah</button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Harga Jual</label>
+                        <input type="text" class="form-control input-rupiah" placeholder="Rp 0">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Satuan</label>
+                        <input type="text" class="form-control" placeholder="Pcs, Kg, Liter, dll">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary">Simpan Barang</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+<script src="assets/static/js/pages/simple-datatables.js"></script>
+<script src="assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
+<script>
+    // Init semua dropdown biasa
+    const choicesEls = document.querySelectorAll('.choices');
+    for (let i = 0; i < choicesEls.length; i++) {
+        new Choices(choicesEls[i], { searchEnabled: false });
+    }
+
+    // Init dropdown Kategori (dengan search)
+    const choicesKategori = new Choices(document.getElementById('selectKategori'), {
+        searchEnabled: true,
+        searchPlaceholderValue: 'Cari kategori...',
+        noChoicesText: 'Kategori tidak ditemukan',
+    });
+
+    // Toggle input tambah kategori
+    const inputBox = document.getElementById('inputKategoriCustom');
+    document.getElementById('linkTambahKategori').addEventListener('click', function(e) {
+        e.preventDefault();
+        inputBox.style.display = inputBox.style.display === 'none' ? 'flex' : 'none';
+        if (inputBox.style.display !== 'none') {
+            document.getElementById('inputKategoriBaru').focus();
+        }
+    });
+
+    // Tombol Tambah Kategori
+    document.getElementById('btnTambahKategori').addEventListener('click', function() {
+        const inputEl = document.getElementById('inputKategoriBaru');
+        const newKategori = inputEl.value.trim();
+        if (!newKategori) { inputEl.classList.add('is-invalid'); return; }
+        inputEl.classList.remove('is-invalid');
+
+        const sudahAda = choicesKategori._store.choices.some(c => c.label.toLowerCase() === newKategori.toLowerCase());
+        if (sudahAda) { alert('Kategori sudah ada!'); return; }
+
+        choicesKategori.setChoices([{ value: newKategori, label: newKategori, selected: true }], 'value', 'label', false);
+        console.log('[DEMO] POST /categories:', newKategori);
+
+        inputEl.value = '';
+        inputBox.style.display = 'none'; // Tutup input setelah berhasil
+    });
+    // Format rupiah: auto titik & prefix Rp
+    function formatRupiah(el) {
+        let raw = el.value.replace(/[^\d]/g, '');
+        if (!raw) { el.value = ''; return; }
+        el.value = 'Rp ' + parseInt(raw).toLocaleString('id-ID');
+    }
+    document.querySelectorAll('.input-rupiah').forEach(el => {
+        el.addEventListener('input', () => formatRupiah(el));
+        el.addEventListener('focus', function() {
+            if (this.value === '') this.value = 'Rp ';
+        });
+        el.addEventListener('blur', function() {
+            if (this.value === 'Rp ') this.value = '';
+        });
+    });
+</script>
+{% endblock %}

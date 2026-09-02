@@ -1,0 +1,98 @@
+{% set title = 'Riwayat Transaksi' %}
+{% set filename = 'riwayat.html' %}
+
+{% extends 'src/layouts/master.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="assets/extensions/simple-datatables/style.css">
+<link rel="stylesheet" href="assets/scss/pages/simple-datatables.scss">
+{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Riwayat Transaksi & Aktivitas</h3>
+                <p class="text-subtitle text-muted">Log keseluruhan dari barang masuk, barang keluar, dan perubahan harga.</p>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="m-0">Semua Aktivitas</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped" id="table1">
+                    <thead>
+                        <tr>
+                            <th>Waktu</th>
+                            <th>Jenis Aktivitas</th>
+                            <th>Nama Barang</th>
+                            <th>Detail / Perubahan</th>
+                            <th>Lokasi</th>
+                            <th>User</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>02/09/2026 10:30</td>
+                            <td><span class="badge bg-success">Barang Masuk</span></td>
+                            <td>Besi Beton Polos 10mm</td>
+                            <td>Masuk 100 Batang</td>
+                            <td>Lokasi 1</td>
+                            <td>Admin</td>
+                        </tr>
+                        <tr>
+                            <td>02/09/2026 09:45</td>
+                            <td><span class="badge bg-danger">Barang Keluar</span></td>
+                            <td>Semen Tiga Roda 50Kg</td>
+                            <td>Keluar 25 Sak</td>
+                            <td>Lokasi 3</td>
+                            <td>Gudang</td>
+                        </tr>
+                        <tr>
+                            <td>02/09/2026 09:15</td>
+                            <td><span class="badge bg-info">Update Harga</span></td>
+                            <td>Besi Beton Polos 10mm</td>
+                            <td>Rp 72.000 → Rp 75.000</td>
+                            <td>Semua Lokasi</td>
+                            <td>Admin</td>
+                        </tr>
+                        <tr>
+                            <td>01/09/2026 14:00</td>
+                            <td><span class="badge bg-danger">Barang Keluar</span></td>
+                            <td>Cat Besi Avian Hitam 1Kg</td>
+                            <td>Keluar 12 Kaleng</td>
+                            <td>Lokasi 2</td>
+                            <td>Gudang</td>
+                        </tr>
+                        <tr>
+                            <td>01/09/2026 08:00</td>
+                            <td><span class="badge bg-success">Barang Masuk</span></td>
+                            <td>Thinner Impala 1L</td>
+                            <td>Masuk 48 Botol</td>
+                            <td>Lokasi 2</td>
+                            <td>Admin</td>
+                        </tr>
+                        <tr>
+                            <td>01/09/2026 07:30</td>
+                            <td><span class="badge bg-info">Update Harga</span></td>
+                            <td>Cat Besi Avian Hitam 1Kg</td>
+                            <td>Rp 52.000 → Rp 55.000</td>
+                            <td>Semua Lokasi</td>
+                            <td>Admin</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+<script src="assets/static/js/pages/simple-datatables.js"></script>
+{% endblock %}
