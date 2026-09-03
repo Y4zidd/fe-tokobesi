@@ -68,7 +68,6 @@
     "toastify-js": "^1.12.0"
   },
   "devDependencies": {
-    "@esbuild/win32-x64": "^0.28.2",
     "@sweetalert2/theme-dark": "^5.0.15",
     "bestzip": "^2.2.1",
     "browser-sync": "^2.27.11",
